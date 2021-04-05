@@ -1,32 +1,11 @@
-var userToken = "";
-
-chrome.storage.local.get(
-  ["userToken"],
-  (result) => (userToken = result["userToken"])
-);
-
 const API_KEY = "AIzaSyA_q33VGHMC9-oMNkrrdvjTo6boyvYSuxo";
 
 document.addEventListener("mouseup", (event) => {
   var selection = window.getSelection().toString();
-
-  if (selection && userToken && event.ctrlKey) {
-    updateDocument(
-      selection,
-      "1T1uMQe8CZUYP9vo9B9XQZc-8J7v163kzwu35ciC3Wfk",
-      userToken
-    );
-  }
-});
-
-chrome.storage.onChanged.addListener((changes) => {
-  for (var key in changes) {
-    var storageChange = changes[key];
-    updateDocument(
-      storageChange.newValue,
-      "1T1uMQe8CZUYP9vo9B9XQZc-8J7v163kzwu35ciC3Wfk",
-      userToken
-    );
+  if (event.ctrlKey) {
+    chrome.storage.local.get(null, (result) => {
+      updateDocument(selection, result["active"], result["token"]);
+    });
   }
 });
 
