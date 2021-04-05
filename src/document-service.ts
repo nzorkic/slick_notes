@@ -12,7 +12,7 @@ const getAllDocuments = async (token: string) => {
   };
   var response = await fetch("https://www.googleapis.com/drive/v3/files", init);
 
-  console.log(response.json());
+  return response.json();
 };
 
 const getDocument = async (documentId: string, token: string) => {
