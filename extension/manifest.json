@@ -8,6 +8,12 @@
     "default_title": "Slick Notes",
     "default_popup": "popup.html"
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
   "icons": {
     "16": "/images/slick_notes16.png",
     "32": "/images/slick_notes32.png",
@@ -16,7 +22,15 @@
     "128": "/images/slick_notes128.png"
   },
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "permissions": ["identity"],
+  "permissions": [
+    "http://*/*",
+    "https://*/*",
+    "<all_urls>",
+    "contextMenus",
+    "identity",
+    "activeTab",
+    "storage"
+  ],
   "oauth2": {
     "client_id": "410105494772-5pi3tod0m8eiaudujqqqhkt4peb8k4sq.apps.googleusercontent.com",
     "scopes": [
