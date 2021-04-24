@@ -1,6 +1,7 @@
 const API_KEY = "AIzaSyA_q33VGHMC9-oMNkrrdvjTo6boyvYSuxo";
 
 document.addEventListener("mouseup", (event) => {
+<<<<<<< HEAD
   var selection = window.getSelection().toString();
   if (event.ctrlKey) {
     chrome.storage.local.get(null, (result) => {
@@ -9,6 +10,27 @@ document.addEventListener("mouseup", (event) => {
   }
 });
 
+=======
+  var selection = window.getSelection().toString().trim();
+
+  if (!selection.length) return;
+
+  if (event.ctrlKey && event.altKey) {
+    writeContent(`\n\n${selection}`);
+  } else if (event.ctrlKey) {
+    writeContent(` ${selection}`);
+  } else if (event.altKey) {
+    writeContent(`\n${selection}`);
+  }
+});
+
+const writeContent = (content) => {
+  chrome.storage.local.get(null, (result) => {
+    updateDocument(content, result["active"], result["token"]);
+  });
+};
+
+>>>>>>> 0deac32 (test)
 const updateDocument = async (content, documentId, token) => {
   var index = await getDocumentLength(documentId, token);
   let init = {
@@ -25,7 +47,11 @@ const updateDocument = async (content, documentId, token) => {
             location: {
               index: index - 1,
             },
+<<<<<<< HEAD
             text: `\n${content}`,
+=======
+            text: `${content}`,
+>>>>>>> 0deac32 (test)
           },
         },
       ],
