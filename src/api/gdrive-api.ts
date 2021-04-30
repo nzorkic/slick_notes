@@ -37,14 +37,7 @@ const getDocumentLength = async (
   documentId: string,
   token: string
 ): Promise<number> => {
-  const response = await fetch(
-    `https://docs.googleapis.com/v1/documents/${documentId}`,
-    createApiInit({ method: "GET", async: true, token: token })
-  );
-
-  checkForErrors(response, "There was an error fetching document length.");
-
-  const data = await response.json();
+  const data = await getDocument(documentId, token);
   const content = data?.body?.content ?? [];
   return content[content.length - 1]?.endIndex ?? 0;
 };
