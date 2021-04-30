@@ -1,6 +1,6 @@
 <script>
   import { token, documents } from "../shared/store";
-  import { getAllDocuments } from "../document-service";
+  import { getAllDocuments } from "../api/gdrive-api";
 
   import DocumentTile from "./DocumentTile.svelte";
 

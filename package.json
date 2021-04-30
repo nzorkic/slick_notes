@@ -26,6 +26,7 @@
   "dependencies": {
     "@types/chrome": "0.0.134",
     "cpx": "^1.5.0",
+    "dotenv": "^8.2.0",
     "googleapis": "^70.0.0",
     "sirv-cli": "^1.0.0"
   }
