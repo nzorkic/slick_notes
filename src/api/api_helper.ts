@@ -29,7 +29,7 @@ export const createApiInit = ({
 export const checkForErrors = (response: Response, text: string) => {
   if (!response.ok) {
     throw new Error(
-      text + " Error - " + response.status + " " + response.statusText
+      `${text} Error ${response.status} - ${response.statusText}`
     );
   }
 };
