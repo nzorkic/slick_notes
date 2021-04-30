@@ -10,7 +10,7 @@ const getAllDocuments = async (token: string) => {
     },
     contentType: "application/json",
   };
-  var response = await fetch("https://www.googleapis.com/drive/v3/files", init);
+  var response = await fetch("https://www.googleapis.com/drive/v3/files?fields=files(id,name,mimeType)", init);
 
   return response.json();
 };

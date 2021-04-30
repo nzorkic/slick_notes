@@ -6,6 +6,7 @@
 
   const getDocuments = async () => {
     var data = await getAllDocuments($token);
+    console.log("data => ", data);
     documents.set(
       data?.files?.filter((file) => file.mimeType.endsWith("document"))
     );

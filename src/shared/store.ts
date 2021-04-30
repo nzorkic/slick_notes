@@ -1,3 +1,5 @@
+/// <reference types="chrome"/>
+
 import { writable } from "svelte/store";
 
 export const token = writable(localStorage.getItem("token") || "");
@@ -16,5 +18,4 @@ active.subscribe((value) => {
 });
 documents.subscribe((value) => {
   localStorage.setItem("documents", JSON.stringify(value));
-  chrome.storage.local.set({ documents: JSON.stringify(value) });
 });
