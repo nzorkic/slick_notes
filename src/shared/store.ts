@@ -4,6 +4,7 @@ import { writable } from "svelte/store";
 
 export const token = writable(localStorage.getItem("token") || "");
 export const active = writable(localStorage.getItem("active") || "");
+export const rootDrive = writable("");
 
 const storageDocs = localStorage.getItem("documents");
 export const documents = writable(storageDocs ? JSON.parse(storageDocs) : []);

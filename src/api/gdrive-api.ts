@@ -2,7 +2,7 @@ import { checkForErrors, createApiInit } from "./api_helper";
 
 const getRootDrive = async (token: string) => {
   const response = await fetch(
-    "https://www.googleapis.com/drive/v3/files/root",
+    "https://www.googleapis.com/drive/v3/files/root?fields=id",
     createApiInit({ method: "GET", async: true, token: token })
   );
 
@@ -13,7 +13,7 @@ const getRootDrive = async (token: string) => {
 
 const getAllDocuments = async (token: string) => {
   const response = await fetch(
-    "https://www.googleapis.com/drive/v3/files?fields=files(id,name,mimeType)",
+    "https://www.googleapis.com/drive/v3/files?fields=files(id,name,mimeType,parents)",
     createApiInit({ method: "GET", async: true, token: token })
   );
 

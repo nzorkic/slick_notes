@@ -1,15 +1,13 @@
 <script>
   import { token, documents } from "../shared/store";
-  import { getAllDocuments } from "../api/gdrive-api";
+  import { createParentsAndChildren } from "../services/document_service";
 
   import DocumentTile from "./DocumentTile.svelte";
 
   const getDocuments = async () => {
-    var data = await getAllDocuments($token);
-    console.log("data => ", data);
-    documents.set(
-      data?.files?.filter((file) => file.mimeType.endsWith("document"))
-    );
+    const files = await createParentsAndChildren($token);
+    console.log("files -> ", files);
+    documents.set(files);
   };
 
   if (!$documents.length) {
