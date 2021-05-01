@@ -2,7 +2,7 @@
   import { token, documents } from "../shared/store";
   import { createParentsAndChildren } from "../services/document_service";
 
-  import DocumentTile from "./DocumentTile.svelte";
+  import TreeView from "./TreeView.svelte";
 
   const getDocuments = async () => {
     const files = await createParentsAndChildren($token);
@@ -17,7 +17,7 @@
 
 <button on:click={getDocuments}>Refresh</button>
 <ul>
-  {#each $documents as { name, id }}
-    <DocumentTile {name} {id} />
+  {#each $documents as tree}
+    <TreeView {tree} />
   {/each}
 </ul>
