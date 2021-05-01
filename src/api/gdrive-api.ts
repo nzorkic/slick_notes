@@ -24,7 +24,7 @@ const getAllDocuments = async (token: string) => {
 
 const getDocument = async (documentId: string, token: string) => {
   const response = await fetch(
-    `https://docs.googleapis.com/v1/documents/${documentId}`,
+    `https://docs.googleapis.com/v1/documents/${documentId}?fields=body`,
     createApiInit({ method: "GET", async: true, token: token })
   );
 
