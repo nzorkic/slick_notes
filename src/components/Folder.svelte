@@ -28,10 +28,10 @@
 
 <style>
   span {
-    padding: 0 0 0 1.5em;
-    background: url(/images/icons/folder-closed.svg) 0 0.1em no-repeat;
-    background-size: 1em 1em;
-    font-weight: bold;
+    padding-left: 1.5em;
+    background: url(/images/icons/folder-closed.svg) left no-repeat;
+    background-size: 1.4em 1.4em;
+    font-size: large;
     cursor: pointer;
   }
 
@@ -40,7 +40,7 @@
   }
 
   ul {
-    padding: 0.2em 0 0 0.5em;
+    padding: 0.4em 0 0 0.5em;
     margin: 0 0 0 0.5em;
     list-style: none;
     border-left: 1px solid #eee;

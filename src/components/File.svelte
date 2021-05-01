@@ -26,8 +26,9 @@
 
 <style>
   span {
-    padding: 0 0 0 1.5em;
-    background: 0 0.1em no-repeat;
-    background-size: 1em 1em;
+    padding-left: 1.5em;
+    background: left no-repeat;
+    font-size: large;
+    background-size: 1.4em 1.4em;
   }
 </style>
