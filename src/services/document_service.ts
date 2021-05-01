@@ -23,6 +23,10 @@ export const getAllChildren = async (
     (file) =>
       file.mimeType.endsWith("document") || file.mimeType.endsWith("folder")
   );
+  foldersAndDocs.forEach((file) => {
+    var mimeType = file.mimeType;
+    file.type = mimeType.slice(mimeType.lastIndexOf(".") + 1);
+  });
   var rootFiles = foldersAndDocs.filter((file) =>
     file.parents.includes(rootId)
   );

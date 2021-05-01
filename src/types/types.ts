@@ -2,6 +2,7 @@ export interface File {
   id: string;
   name: string;
   mimeType: string;
+  type: string;
   parents: string[];
   children?: File[];
 }

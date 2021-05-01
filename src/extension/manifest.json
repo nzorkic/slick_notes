@@ -15,11 +15,11 @@
     }
   ],
   "icons": {
-    "16": "/images/slick_notes16.png",
-    "32": "/images/slick_notes32.png",
-    "48": "/images/slick_notes48.png",
-    "96": "/images/slick_notes96.png",
-    "128": "/images/slick_notes128.png"
+    "16": "/images/logo/slick_notes16.png",
+    "32": "/images/logo/slick_notes32.png",
+    "48": "/images/logo/slick_notes48.png",
+    "96": "/images/logo/slick_notes96.png",
+    "128": "/images/logo/slick_notes128.png"
   },
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "permissions": [

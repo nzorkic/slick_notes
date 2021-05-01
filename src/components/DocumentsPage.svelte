@@ -2,11 +2,10 @@
   import { token, documents } from "../shared/store";
   import { createParentsAndChildren } from "../services/document_service";
 
-  import TreeView from "./TreeView.svelte";
+  import Folder from "./Folder.svelte";
 
   const getDocuments = async () => {
     const files = await createParentsAndChildren($token);
-    console.log("files -> ", files);
     documents.set(files);
   };
 
@@ -15,9 +14,5 @@
   }
 </script>
 
-<button on:click={getDocuments}>Refresh</button>
-<ul>
-  {#each $documents as tree}
-    <TreeView {tree} />
-  {/each}
-</ul>
+<button on:click={getDocuments}>Refresh</button><br />
+<Folder name="Home" items={[...$documents]} expanded />

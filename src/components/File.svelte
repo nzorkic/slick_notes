@@ -1,16 +1,16 @@
 <script>
   import { active } from "../shared/store";
-
-  export var name;
-  export var id;
+  export let name;
+  export let type;
+  export let id;
 
   let selected = $active;
 
   $: active.set(selected);
 </script>
 
-<li>
-  {name}
+<span style="background-image: url(images/icons/{type}.svg)"
+  >{name}
   {#if selected === id}
     <input
       type="radio"
@@ -21,5 +21,13 @@
     />
   {:else}
     <input type="radio" name="active" bind:group={selected} value={id} />
-  {/if}
-</li>
+  {/if}</span
+>
+
+<style>
+  span {
+    padding: 0 0 0 1.5em;
+    background: 0 0.1em no-repeat;
+    background-size: 1em 1em;
+  }
+</style>
