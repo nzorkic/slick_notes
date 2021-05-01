@@ -27,13 +27,23 @@ export const getAllChildren = async (
     file.parents.includes(rootId)
   );
 
+  var rootFolders = rootFiles.filter((file) =>
+    file.mimeType.endsWith("folder")
+  );
+
+  delegateChildren(rootFolders, foldersAndDocs);
+
   return rootFiles;
+};
 
-  //   var rootFolders = rootFiles.filter((file) =>
-  //     file.mimeType.endsWith("folder")
-  //   );
-
-  //   foldersAndDocs.forEach(file => {
-
-  //   });
+const delegateChildren = (rootFolders: File[], foldersAndDocs: File[]) => {
+  rootFolders.forEach((file) => {
+    file.children = [];
+    foldersAndDocs.forEach((_file) => {
+      if (_file.parents.includes(file.id)) {
+        file.children.push(_file);
+      }
+    });
+    delegateChildren(file.children, foldersAndDocs);
+  });
 };

@@ -3,6 +3,7 @@ export interface File {
   name: string;
   mimeType: string;
   parents: string[];
+  children?: File[];
 }
 
 export interface RootDrive {
