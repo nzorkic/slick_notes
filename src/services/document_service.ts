@@ -1,20 +1,16 @@
 import { getRootDrive } from "../api/gdrive-api";
-import { getAllDocuments } from "../api/gdrive-api";
+import { getAllFiles } from "../api/gdrive-api";
+import { documents } from "../shared/store";
 import type { Drive, File, RootDrive } from "../types/types";
-
-export const getRootDriveId = async (token: string): Promise<string> => {
-  const drive: RootDrive = await getRootDrive(token);
-  return drive.id;
-};
 
 export const createParentsAndChildren = async (
   token: string
 ): Promise<File[]> => {
-  const allDocuments: Drive = await getAllDocuments(token);
-  return await getAllChildren(allDocuments.files, token);
+  const drive: Drive = await getAllFiles(token);
+  return await getStructuredFiles(drive.files, token);
 };
 
-export const getAllChildren = async (
+const getStructuredFiles = async (
   files: File[],
   token: string
 ): Promise<File[]> => {
@@ -23,10 +19,8 @@ export const getAllChildren = async (
     (file) =>
       file.mimeType.endsWith("document") || file.mimeType.endsWith("folder")
   );
-  foldersAndDocs.forEach((file) => {
-    var mimeType = file.mimeType;
-    file.type = mimeType.slice(mimeType.lastIndexOf(".") + 1);
-  });
+  setFileType(foldersAndDocs);
+
   var rootFiles = foldersAndDocs.filter((file) =>
     file.parents.includes(rootId)
   );
@@ -35,19 +29,43 @@ export const getAllChildren = async (
     file.mimeType.endsWith("folder")
   );
 
-  delegateChildren(rootFolders, foldersAndDocs);
+  assignChildrenAndParents(rootFolders, foldersAndDocs);
+
+  documents.set(
+    foldersAndDocs.filter((file) => file.mimeType.endsWith("document"))
+  );
 
   return rootFiles;
 };
 
-const delegateChildren = (rootFolders: File[], foldersAndDocs: File[]) => {
+const getRootDriveId = async (token: string): Promise<string> => {
+  const drive: RootDrive = await getRootDrive(token);
+  return drive.id;
+};
+
+const setFileType = (files: File[]): void => {
+  files.forEach((file) => {
+    var mimeType = file.mimeType;
+    file.type = mimeType.slice(mimeType.lastIndexOf(".") + 1);
+  });
+};
+
+const assignChildrenAndParents = (
+  rootFolders: File[],
+  foldersAndDocs: File[],
+  distantParents: string[] = []
+) => {
   rootFolders.forEach((file) => {
     file.children = [];
     foldersAndDocs.forEach((_file) => {
       if (_file.parents.includes(file.id)) {
         file.children.push(_file);
+        _file.parents.push(...distantParents);
       }
     });
-    delegateChildren(file.children, foldersAndDocs);
+    assignChildrenAndParents(file.children, foldersAndDocs, [
+      ...distantParents,
+      file.id,
+    ]);
   });
 };

@@ -1,13 +1,17 @@
-<script>
+<script lang="ts">
   import File from "./File.svelte";
+  import type { File as FileType } from "../types/types";
 
-  export let expanded = false;
-  export let name;
-  export let items;
+  export let expanded: boolean;
+  export let name: string;
+  export let items: FileType[];
+  export let activeFile: FileType;
 
   function toggle() {
     expanded = !expanded;
   }
+
+  console.log("activeFile -> ", activeFile);
 </script>
 
 <span class:expanded on:click={toggle}>{name}</span>
@@ -17,7 +21,12 @@
     {#each items as item}
       <li>
         {#if item.type === "folder"}
-          <svelte:self items={item.children} name={item.name} />
+          <svelte:self
+            items={item.children}
+            name={item.name}
+            expanded={activeFile?.parents?.includes(item.id) ? true : false}
+            {activeFile}
+          />
         {:else}
           <File {...item} />
         {/if}

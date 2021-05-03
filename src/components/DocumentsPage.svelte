@@ -1,33 +1,34 @@
-<script>
-  import { token, documents } from "../shared/store";
+<script lang="ts">
+  import { token, files, active, documents } from "../shared/store";
   import { createParentsAndChildren } from "../services/document_service";
 
   import Folder from "./Folder.svelte";
 
-  const getDocuments = async () => {
-    const files = await createParentsAndChildren($token);
-    documents.set(files);
+  const getAllFiles = async () => {
+    const structuredFiles = await createParentsAndChildren($token);
+    files.set(structuredFiles);
   };
 
-  if (!$documents.length) {
-    getDocuments();
+  if (!$files.length) {
+    getAllFiles();
   }
 </script>
 
 <div class="header">
-  <img
-    alt="settings"
-    src="images/icons/settings.svg"
-    on:click={() => {}}
-  />
+  <img alt="settings" src="images/icons/settings.svg" on:click={() => {}} />
   <img
     alt="refresh files"
     src="images/icons/refresh.svg"
-    on:click={getDocuments}
+    on:click={getAllFiles}
   />
 </div>
 <div class="tree-view">
-  <Folder name="Home" items={[...$documents]} expanded />
+  <Folder
+    name="My Drive"
+    items={[...$files]}
+    activeFile={[...$documents].find((file) => file.id === $active)}
+    expanded
+  />
 </div>
 <div class="footer">
   <br />

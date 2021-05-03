@@ -11,7 +11,7 @@ const getRootDrive = async (token: string) => {
   return response.json();
 };
 
-const getAllDocuments = async (token: string) => {
+const getAllFiles = async (token: string) => {
   const response = await fetch(
     "https://www.googleapis.com/drive/v3/files?fields=files(id,name,mimeType,parents)",
     createApiInit({ method: "GET", async: true, token: token })
@@ -69,7 +69,7 @@ const updateDocument = async (
 };
 
 export {
-  getAllDocuments,
+  getAllFiles,
   getDocument,
   updateDocument,
   getDocumentLength,

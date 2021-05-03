@@ -1,26 +1,22 @@
-<script>
+<script lang="ts">
   import { active } from "../shared/store";
-  export let name;
-  export let type;
-  export let id;
+  export let name: string;
+  export let type: string;
+  export let id: string;
 
   window.onload = () => {
-    if ($active) {
-      document.querySelector(`.check-${$active}`).classList.add("show");
-    }
+    document.querySelector(`.check-${$active}`)?.classList.add("show");
   };
 
-  const selectActive = (id) => {
-    if (document.querySelector(`.check-${$active}`)) {
-      document.querySelector(`.check-${$active}`).classList.remove("show");
-    }
-    document.querySelector(`.check-${id}`).classList.add("show");
+  const changeActive = (id: string): void => {
+    document.querySelector(`.check-${$active}`)?.classList.remove("show");
+    document.querySelector(`.check-${id}`)?.classList.add("show");
     active.set(id);
   };
 </script>
 
 <div
-  on:click={selectActive(id)}
+  on:click={() => changeActive(id)}
   class="tile"
   style="background-image: url(images/icons/{type}.svg)"
 >
